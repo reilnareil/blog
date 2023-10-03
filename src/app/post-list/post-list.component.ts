@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../post.model';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-post-list',
@@ -8,15 +9,13 @@ import { Post } from '../post.model';
 })
 export class PostListComponent implements OnInit {
 
-  listOfPosts: Post[] = [
-    new Post("Tech Crunch", "TechCrunch is a blog that provides technology and startup news, from the latest developments in Silicon Valley to venture capital funding. The blog’s target audience is technology and business enthusiasts, especially startup founders and investors worldwide.", "https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/12/techcrunch-website-homepage-1024x542.webp", "Reilan", new Date()),
-    new Post("Tech Crunc", "TechCrunch is a blog that provides technology and startup news, from the latest developments in Silicon Valley to venture capital funding. The blog’s target audience is technology and business enthusiasts, especially startup founders and investors worldwide.", "https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/12/techcrunch-website-homepage-1024x542.webp", "Reilan", new Date()),
-
-  ]
-
-  constructor() { }
+  listOfPosts: Post[] = [];
+  constructor(
+    private postService: PostService
+  ) { }
 
   ngOnInit(): void {
+    this.listOfPosts = this.postService.getPost();
   }
 
 }
