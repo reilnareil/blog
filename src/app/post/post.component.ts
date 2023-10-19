@@ -15,14 +15,23 @@ export class PostComponent implements OnInit {
   }
   @Input() index: number = 0;
   @Input() post?: Post;
+  comments: string[] = [];
 
   ngOnInit(): void {
     console.log(this.post);
+    this.comments = this.postService.getComments(this.index);
   }
   delete() {
     this.postService.deleteButton(this.index);
   }
   onEdit() {
     this.router.navigate(['/post-edit', this.index])
+  }
+  onLike() {
+    this.postService.likePost(this.index)
+  }
+  onAddComment(comment: string) {
+    this.postService.addComment(this.index, comment);
+    this.comments = this.postService.getComments(this.index); // Refresh the comments
   }
 }
